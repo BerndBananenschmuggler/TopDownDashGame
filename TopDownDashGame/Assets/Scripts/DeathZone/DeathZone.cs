@@ -14,7 +14,7 @@ public class DeathZone : MonoBehaviour
 
     private void RespawnPlayer()
     {
-        GameManager.Instance.DespawnPlayer();
-        GameManager.Instance.SpawnPlayer();
+        GameManager.PlayerSpawnerInstance.DespawnPlayer();
+        GameManager.PlayerSpawnerInstance.SpawnPlayer();
     }
 }

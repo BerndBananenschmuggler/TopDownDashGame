@@ -1,0 +1,4 @@
+- Buttons ohne Schatten hinter der Font
+Gegner mit Collider und bei OnDash event alle Gegner in enemyspawner gespeicherten gegner den collider auf trigger setzen, ebenfalls bei neu gespawnten Gegnern, ändern nach ende Dash --> Liste, da zerstörte Gegner gelöscht werden sollen
+
+Besitzer von Events sollten diese auf NULL setzen wenn sie gelöscht werden, um Memory-Leaks zu verhindern

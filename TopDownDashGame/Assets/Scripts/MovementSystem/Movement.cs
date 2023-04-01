@@ -50,7 +50,7 @@ public class Movement
             Quaternion rotation = Quaternion.LookRotation(skewedMovement, Vector3.up);
             //transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
 
-            DrawDebugForwardRay(transform, skewedMovement);
+            //DrawDebugForwardRay(transform, skewedMovement);
 
             //m_rigidbody.transform.rotation = Quaternion.RotateTowards(currentRotation, rotation, rotationSpeed * Time.deltaTime);
             m_rigidbody.transform.rotation = Quaternion.RotateTowards(currentRotation, rotation, float.MaxValue);

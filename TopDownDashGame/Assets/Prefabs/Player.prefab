@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 1165827099492769887}
   - component: {fileID: 1165827099492769953}
   - component: {fileID: 1165827099492769886}
-  - component: {fileID: 1165827099492769952}
+  - component: {fileID: 7623332286720184450}
   - component: {fileID: 1165827099492769955}
   - component: {fileID: 2358917770407787344}
   m_Layer: 0
@@ -264,7 +264,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1165827099492769886
 MonoBehaviour:
@@ -278,20 +278,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7afe07e99deec448c9fbafb752c742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnMove:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDashed:
-    m_PersistentCalls:
-      m_Calls: []
   m_rigidbody: {fileID: 1165827099492769953}
   m_camera: {fileID: 0}
-  m_movementSpeed: 2.5
+  m_movementSpeed: 2.8
   m_rotationSpeed: 360
   m_dashSpeedMultiplicator: 3.5
-  m_dashCooldown: 2
+  m_dashCooldown: 1.1
   m_dashDuration: 0.35
---- !u!114 &1165827099492769952
+--- !u!114 &7623332286720184450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,28 +294,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1165827099492769884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a7922a7cb50fa40b3fee9141bac7de, type: 3}
+  m_Script: {fileID: 11500000, guid: 71e93c4ea8737db4092990efc3a803ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maximumHealthPoints: 100
-  OnHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDied:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1165827099492769955}
-        m_TargetAssemblyTypeName: DestroyAction, Assembly-CSharp
-        m_MethodName: Trigger
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_isDashing: 0
 --- !u!114 &1165827099492769955
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,8 +8,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class MovementBehaviour : MonoBehaviour
 {
-    public UnityEvent OnMove = null;
-    public UnityEvent OnDashed = null;
+    public event Action OnMove = null;
+    public event Action OnDashed = null;
+    public event Action OnDashStopped = null;
 
     [SerializeField] private Rigidbody m_rigidbody;
     [SerializeField] private Camera m_camera;
@@ -62,6 +63,13 @@ public class MovementBehaviour : MonoBehaviour
             OnMove?.Invoke();
     }
 
+    private void OnDestroy()
+    {
+        OnMove = null;
+        OnDashed = null;
+        OnDashStopped = null;
+    }
+
     private IEnumerator Dash()
     {
         m_rigidbody.useGravity = false;        
@@ -74,6 +82,7 @@ public class MovementBehaviour : MonoBehaviour
         yield return new WaitForSeconds(m_dashDuration);
 
         m_movement.StopDashRigidbody();
+        OnDashStopped?.Invoke();
         m_isDashing = false;
         m_rigidbody.useGravity = true;
 
