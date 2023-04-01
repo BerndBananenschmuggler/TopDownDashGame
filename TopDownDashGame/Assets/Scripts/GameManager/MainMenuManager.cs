@@ -24,12 +24,9 @@ namespace Assets.Scripts.GameManager
 
         private void Start()
         {
-            Debug.Log(Time.timeScale);
-
             m_mainMenuScreenManager.DisplayScreen();
 
             Time.timeScale = 1;
-            //m_transitionAnimator.Play("Crossfade_Start");
         }
 
         public void PlayButton_Click()

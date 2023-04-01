@@ -60,11 +60,6 @@ public class GameManager : MonoBehaviour
         m_countdownTimer.OnTimerEnded -= HandleTimerEnded;
     }
 
-    private void Update()
-    {
-        Debug.Log(Time.timeScale);
-    }
-
     public void RestartButton_Click()
     {
         SetAnimationTrigger("Start");
@@ -115,7 +110,6 @@ public class GameManager : MonoBehaviour
 
         Score = 0;
         OnUIValuesChanged?.Invoke();
-
     }
 
     private void EndGame()
@@ -153,7 +147,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(m_transitionTime);
 
-        SceneManager.LoadScene(sceneName);
-        
+        SceneManager.LoadScene(sceneName);        
     }
 }
