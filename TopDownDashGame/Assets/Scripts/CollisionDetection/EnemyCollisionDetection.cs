@@ -18,17 +18,12 @@ namespace Assets.Scripts.CollisionDetection
         {
             GameManager.GameManager.PlayerSpawnerInstance.OnPlayerSpawned += HandlePlayerSpawned;
             GameManager.GameManager.PlayerSpawnerInstance.OnPlayerDespawned += HandlePlayerDespawned;
-        }
-
-        
+        }        
 
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject == GameManager.GameManager.PlayerSpawnerInstance.GetActivePlayer())
             {
-                
-
-
                 var playerHealth = collision.gameObject.GetComponent<Health>();
                 playerHealth.ApplyDamage(m_collisionDamage);
             }

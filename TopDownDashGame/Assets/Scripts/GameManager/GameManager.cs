@@ -66,6 +66,8 @@ namespace Assets.Scripts.GameManager
             }                
 
             StartGame();
+
+            //PlayerSpawnerInstance.GetActivePlayer().GetComponent<Health>().OnDied += HandlePlayerDied;
         }
 
         private void OnDestroy()
@@ -99,7 +101,7 @@ namespace Assets.Scripts.GameManager
         {
             SetAnimationTrigger("Start");
 
-            StartCoroutine(LoadScene(SceneManager.GetActiveScene().name));
+            StartCoroutine(LoadScene("NormalLevel"));
         }
 
         public void MainMenuButton_Click()
@@ -150,8 +152,8 @@ namespace Assets.Scripts.GameManager
             m_endScreenManager?.HideScreen();
 
             Score = 0;
-            OnUIValuesChanged?.Invoke();
-        }
+            OnUIValuesChanged?.Invoke();            
+        }        
 
         private void EndGame()
         {
@@ -214,7 +216,25 @@ namespace Assets.Scripts.GameManager
 
         public void BossKilled()
         {
+            m_endScreenManager.ChangedHeader("You won!");
+
             EndGame();
+        }
+
+        public void PlayerKilled()
+        {
+            m_endScreenManager.ChangedHeader("You lost!");
+            
+            Invoke("EndGame", .25f);
+        }
+
+        private void HandlePlayerDied()
+        {
+            m_endScreenManager.ChangedHeader("You lost!");
+
+            
+
+            Invoke("EndGame", .25f);
         }
     }
 }

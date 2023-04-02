@@ -9,6 +9,7 @@ public class EndScreenManager : ScreenManager
 {                      
     [SerializeField] private TextMeshProUGUI m_scoreText;
     [SerializeField] private TextMeshProUGUI m_highscoreText;
+    [SerializeField] private TextMeshProUGUI m_headerText;
 
     public override void DisplayScreen()
     {
@@ -23,5 +24,10 @@ public class EndScreenManager : ScreenManager
 
         m_scoreText.text = $"Your Score : {score}";
         m_highscoreText.text = $"Highscore : {highscore}";
+    }
+
+    public void ChangedHeader(string headerText)
+    {
+        m_headerText.text = headerText;
     }
 }

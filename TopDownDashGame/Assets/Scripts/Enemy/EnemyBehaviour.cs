@@ -12,8 +12,7 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public bool CollisionTriggered = false;
     
-    [SerializeField] private GameObject m_target;
-    
+    [SerializeField] private GameObject m_target;    
 
     private NavMeshAgent m_navAgent;
     private GameObject m_playerObject;
@@ -80,7 +79,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void Destroy()
     {
-        GameManager.Instance.BossKilled();
+        // Contains -> Boss01 Copy registered aswell, just in case
+        if (gameObject.name.Contains("Boss"))
+            GameManager.Instance.BossKilled();
 
         m_destroyAction.Trigger();
     }
