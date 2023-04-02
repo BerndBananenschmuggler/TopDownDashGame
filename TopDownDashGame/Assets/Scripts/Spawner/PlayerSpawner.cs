@@ -58,9 +58,10 @@ namespace Assets.Scripts.Spawner
 
         public void DespawnPlayer()
         {
+            OnPlayerDespawned?.Invoke();
+
             m_playerInstance.GetComponent<DestroyAction>().Trigger();
             m_playerInstance = null;
-            OnPlayerDespawned?.Invoke();
         }
 
         public GameObject GetActivePlayer() => m_playerInstance;

@@ -1,3 +1,4 @@
+using Assets.Scripts.GameManager;
 using Assets.Scripts.MenuManager;
 using System.Collections;
 using System.Collections.Generic;

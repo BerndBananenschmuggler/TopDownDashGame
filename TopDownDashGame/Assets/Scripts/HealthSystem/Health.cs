@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,15 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour, IDamageable, IHealable
 {
+    public float MaxHealth { get => m_maximumHealthPoints; }
+    public float CurrentHealth { get => m_currentHealthPoints; }
+
     [SerializeField][Range(0, float.MaxValue)] private float m_maximumHealthPoints = 100f;
     private float m_currentHealthPoints;
 
-    public UnityEvent OnHealthChanged = null;
-    public UnityEvent OnDied = null;
+    public event Action OnHealthChanged = null;
+    public event Action OnDied = null;
+    
 
     private void Awake()
     {
@@ -26,7 +31,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         HealthChanged();
     }
 
-    public void Heal(float healing)
+    public void ApplyHeal(float healing)
     {
         m_currentHealthPoints += healing;
 

@@ -1,3 +1,4 @@
+using Assets.Scripts.GameManager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,49 +7,54 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(DestroyAction))]
+[RequireComponent(typeof(Health))]
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject m_target;    
+    public bool CollisionTriggered = false;
+    
+    [SerializeField] private GameObject m_target;
+    
 
     private NavMeshAgent m_navAgent;
     private GameObject m_playerObject;
     private MovementBehaviour m_playerMovement;
+
     private Collider m_collider;
     private DestroyAction m_destroyAction;
+    private Health m_health;
+    
 
     private void Awake()
     {
         m_navAgent = GetComponent<NavMeshAgent>();
         m_destroyAction = GetComponent<DestroyAction>();
         m_collider = GetComponent<Collider>();
+        m_health = GetComponent<Health>();
     }
 
     private void Start()
     {
-        if (GameManager.PlayerSpawnerInstance.GetActivePlayer() == null)
-            return;
-
         m_playerObject = GameManager.PlayerSpawnerInstance.GetActivePlayer();
-        m_playerMovement = m_playerObject.GetComponent<MovementBehaviour>();
-        m_playerMovement.OnDashed += HandleDash;
-        m_playerMovement.OnDashStopped += HandleDashStopped;
+        if(m_playerObject != null)
+        {
+            m_playerMovement = m_playerObject.GetComponent<MovementBehaviour>();
+            m_playerMovement.OnDashed += HandleDash;
+            m_playerMovement.OnDashStopped += HandleDashStopped;
+        }        
 
         GameManager.PlayerSpawnerInstance.OnPlayerSpawned += HandlePlayerSpawned;
         GameManager.PlayerSpawnerInstance.OnPlayerDespawned += HandlePlayerDespawned;
-
     }
-
-    private void HandleDash()
+        
+    void Update()
     {
-        m_collider.isTrigger = true;
+        if (m_playerObject != null)
+        {
+            if (m_playerObject != m_target)
+                m_target = m_playerObject;
+            m_navAgent.SetDestination(m_target.transform.position);
+        }
     }
-
-    private void HandleDashStopped()
-    {
-        m_collider.isTrigger = false;
-    }
-
-    
 
     private void OnDestroy()
     {
@@ -62,10 +68,29 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    public void Damage(float damage)
+    {
+        m_health.ApplyDamage(damage);
+    }
+
+    public void Heal(float heal)
+    {
+        m_health.ApplyHeal(heal);
+    }
+
+    public void Destroy()
+    {
+        GameManager.Instance.BossKilled();
+
+        m_destroyAction.Trigger();
+    }
+
     private void HandlePlayerSpawned()
     {
         m_playerObject = GameManager.PlayerSpawnerInstance.GetActivePlayer();
         m_playerMovement = m_playerObject.GetComponent <MovementBehaviour>();
+        m_playerMovement.OnDashed += HandleDash;
+        m_playerMovement.OnDashStopped += HandleDashStopped;
     }
 
     private void HandlePlayerDespawned()
@@ -74,19 +99,13 @@ public class EnemyBehaviour : MonoBehaviour
         m_playerMovement = null;
     }
 
-
-    // Update is called once per frame
-    void Update()
+    private void HandleDash()
     {
-        if(m_playerObject != null)
-        {
-            m_navAgent.SetDestination(m_playerObject.transform.position);
-        }
-        
+        m_collider.isTrigger = true;
     }
 
-    public void Destroy()
+    private void HandleDashStopped()
     {
-        m_destroyAction.Trigger();
-    }
+        m_collider.isTrigger = false;
+    }   
 }

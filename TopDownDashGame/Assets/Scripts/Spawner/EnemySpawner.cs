@@ -1,3 +1,4 @@
+using Assets.Scripts.GameManager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,11 +17,14 @@ namespace Assets.Scripts.Spawner
         private float m_currentTime;
         private float m_startTime;
 
+        
+
         private void Start()
         {
+            GetComponent<GameManager.GameManager>().OnGameEnded += HandleGameEnded;
             ResetTimer();            
         }
-
+        
         private void Update()
         {
             if (!m_isSpawning)
@@ -35,11 +39,6 @@ namespace Assets.Scripts.Spawner
                     ResetTimer();
                 }
             }
-        }
-
-        private void StartSpawning()
-        {
-            m_isSpawning = true;
         }
 
         private void ResetTimer()
@@ -57,6 +56,11 @@ namespace Assets.Scripts.Spawner
             Vector3 position = new Vector3(x, 0, z);
             GameObject enemy = Instantiate(m_enemyPrefab, position, Quaternion.identity);
             Debug.Log($"Spawned Enemy: {position.ToString()}");
+        }
+
+        private void HandleGameEnded()
+        {
+            m_isSpawning = false;
         }
     }
 }
