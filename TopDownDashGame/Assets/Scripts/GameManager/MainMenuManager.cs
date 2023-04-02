@@ -31,7 +31,7 @@ namespace Assets.Scripts.GameManager
 
         public void PlayButton_Click()
         {
-            StartCoroutine(LoadLevel("Game"));
+            StartCoroutine(LoadLevel("NormalLevel"));
         }
 
         public void ExitButton_Click()
